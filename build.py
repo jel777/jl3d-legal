@@ -91,27 +91,38 @@ APPS = [
     },
     {
         "slug": "garagelog", "name": "Garage Log", "short": "Garage Log",
+        "effective": "26 November 2026",
         "tagline": "Keep every vehicle's service history, reminders and recalls in one place.",
-        "summary": "Your vehicles and service records stay on your device. A few lookups you start are sent directly to public vehicle-data services, as described below. JL3D does not collect, receive or sell any personal data. There are no ads, no analytics and no tracking.",
+        "summary": "Your vehicles, service records, photos, reminders and backups stay on your device. To decode a VIN, load model lists and check recalls, the app sends only the vehicle details described below to the U.S. National Highway Traffic Safety Administration (NHTSA). JL3D runs no servers for this app and does not receive, sell or share your data. There are no accounts, ads, analytics or tracking.",
         "stored": [
-            "Vehicles (make, model, year, VIN and nickname), service records, costs, mileage and reminders, in a database on your device.",
-            "Cached recall and complaint results, so they are available offline.",
-            "App preferences.",
+            "Vehicles you add (year, make, model, trim, engine, body class, fuel type, VIN if you enter one, colour, licence plate, nickname, odometer readings and purchase details).",
+            "Service records, parts, costs, shop names, notes and service reminders.",
+            "Vehicle photos you choose with the system photo picker. The app sees only the photo you pick, saves a resized copy and removes embedded metadata such as location. Photos are never uploaded.",
+            "Cached NHTSA results (model lists, recalls and complaints), so lookups are not repeated and saved safety results stay available offline.",
+            "App preferences, such as distance units and whether reminders are on. Reminders and odometer check-ins are local notifications scheduled by iOS on the device.",
         ],
         "leaves": [
-            ("NHTSA vPIC (U.S. Department of Transportation)", "When you decode a VIN, the VIN is sent to vpic.nhtsa.dot.gov to look up the vehicle's details."),
-            ("NHTSA recalls and complaints API", "To check recalls and complaints, the vehicle's make, model and year are sent to api.nhtsa.gov. No VIN or personal details are sent for this."),
-            ("Wikipedia", "To show a picture of your vehicle model, the make and model are used to look up a public image on en.wikipedia.org."),
-            ("Carfax and AutoCheck (only if you tap)", "The vehicle-history links open those websites in your browser with the VIN. Nothing is sent unless you tap a link, and those sites' own privacy policies apply."),
+            ("NHTSA vPIC: VIN decoding (Add Vehicle)", "When you add a vehicle by VIN and tap to decode it, the 17-character VIN is sent to vpic.nhtsa.dot.gov. Not stored by the app."),
+            ("NHTSA vPIC: Refresh from VIN (Edit Vehicle)", "Only when you tap Refresh from VIN, the vehicle's VIN is sent to vpic.nhtsa.dot.gov. Proposed changes are shown first and nothing is saved until you confirm."),
+            ("NHTSA vPIC: model lists", "When you enter a vehicle by hand, the make and model year you pick are sent to vpic.nhtsa.dot.gov to list models. Lists are cached on the device for 30 days. Make and trim lists are built into the app."),
+            ("NHTSA recalls and complaints (automatic)", "When you open a vehicle and no fresh results are saved, its make, model and model year (never the VIN) are sent to api.nhtsa.gov. Results are cached for 7 days; if a later refresh fails, the saved results stay visible with a Last updated date."),
+            ("Files you choose to create", "Back Up Garage makes one .garagelogbackup file with all your vehicles, records, reminders and photos; Export Service History makes a CSV spreadsheet. You choose where they go (for example Files, iCloud Drive or AirDrop). They are never sent to JL3D and are not encrypted, so keep them somewhere private."),
         ],
+        "leaves_note": "Each request uses HTTPS and, like any internet request, reveals your IP address to NHTSA, which handles it under its own privacy policy (nhtsa.gov/about-nhtsa/privacy-policy). Links to NHTSA recall campaign pages carry only the campaign number. Your service records, costs, notes, reminders, licence plate, odometer, photos and backups are never sent to anyone.",
+        "label": "On the App Store privacy label, the NHTSA lookups are declared conservatively as Other Data, used only for App Functionality, not linked to you and not used for tracking.",
         "permissions": [
-            ("Notifications", "Used only for the service reminders you set. Reminders are scheduled on your device."),
+            ("Notifications", "Used only for the service reminders and odometer check-ins you set. They are scheduled on your device."),
+            ("Photos", "No library permission is requested. You pick a single photo with the system photo picker."),
         ],
         "purchases": None,
         "faq": [
-            ("Recalls don't load.", "Recall lookups need an internet connection. Results already fetched are shown offline."),
-            ("The app says the database couldn't open.", "Your data has not been deleted. Close and reopen the app. If the message stays, email us before deleting the app."),
-            ("How do I back up my records?", "In Settings, tap Export Database to save a copy of all your records as a file, or rely on your normal iPhone backup."),
+            ("How do I back up my garage or move to a new iPhone?", "In Settings, tap <strong>Back Up Garage</strong>, then <strong>Save to Files</strong> (for example to iCloud Drive) or <strong>Share or AirDrop</strong>. The file contains all vehicles, records, reminders and photos. It is not encrypted, so keep it private. On the new device, tap <strong>Restore from Backup</strong> in Settings, or tap the file in the Files app and choose Garage Log."),
+            ("What happens when I restore a backup?", "Garage Log checks the file and shows what it contains compared with what is on the device. Nothing changes until you tap <strong>Replace My Garage</strong> and confirm. Restoring replaces everything on that device, so you can back up the current garage first from the same screen. If anything goes wrong, your current garage is put back automatically."),
+            ("Can I open my records in a spreadsheet?", "Yes. In Settings, tap <strong>Export Service History</strong> to make a CSV file for Numbers, Excel or Google Sheets. It does not include photos and cannot be restored into the app; use Back Up Garage for that."),
+            ("My reminders don't appear.", "Check that Service Reminders is on in the app's Settings and that notifications are allowed for Garage Log in the iOS Settings app; the app shows a banner when they are turned off. Mileage reminders use the odometer reading you enter, so update it from time to time; the app can remind you to do that."),
+            ("Recalls don't load.", "New recall and complaint lookups need an internet connection. Results already fetched stay available offline with a Last updated date. Recalls are matched by year, make and model, not your VIN, so check your VIN on <a href=\"https://www.nhtsa.gov/recalls\">NHTSA.gov</a> or with a dealer to see whether your vehicle is affected."),
+            ("Can I use kilometres?", "Yes. In Settings, choose Distance Units: Miles, Kilometers, or Automatic to follow your region."),
+            ("The app says my garage couldn't be opened, or a restore didn't finish.", "Don't delete the app: that would delete your data and its safety copy. Use <strong>Save a Copy</strong> on that screen, free up some storage, tap <strong>Try Again</strong>, and email us if it still doesn't open."),
         ],
     },
 ]
@@ -170,13 +181,15 @@ def privacy(app):
              if app["permissions"] else "<h2>Permissions</h2><p>The app asks for no special permissions.</p>")
     purchases = f"<h2>Purchases</h2><p>{esc(app['purchases'])}</p>" if app.get("purchases") else ""
     kids = app.get("kids", "")
+    note = f"<p>{esc(app['leaves_note'])}</p>" if app.get("leaves_note") else ""
+    label = f"<h2>App Store privacy label</h2><p>{esc(app['label'])}</p>" if app.get("label") else ""
     body = f"""<h1>{esc(app['name'])} Privacy Policy</h1>
-<p class="meta">Effective {EFFECTIVE} · {COMPANY}</p>
+<p class="meta">Effective {app.get("effective", EFFECTIVE)} · {COMPANY}</p>
 <div class="summary"><strong>In short:</strong> {esc(app['summary'])}</div>
 <h2>What the app stores on your device</h2><ul>{stored}</ul>
 <p>This data lives in the app's private storage on your device. iOS may include it in your own iCloud or computer backup; that is governed by Apple's privacy policy. Deleting the app deletes this data.</p>
 <h2>What leaves your device</h2><dl>{leaves}</dl>
-<p>JL3D runs no servers for this app and receives none of this data.</p>
+{note}<p>JL3D runs no servers for this app and receives none of this data.</p>{label}
 {perms}
 {purchases}
 <h2>What we do not do</h2><ul><li>No accounts or sign-in with JL3D.</li><li>No advertising, analytics, crash-reporting or tracking SDKs, and no use of the advertising identifier.</li><li>No selling or sharing of personal data.</li></ul>
