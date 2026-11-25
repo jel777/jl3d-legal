@@ -21,8 +21,10 @@ REFUNDS = "https://support.apple.com/en-us/118223"
 APPS = [
     {
         "slug": "tinyviolin", "name": "World's Tiniest Violin", "short": "Tiny Violin",
+        "effective": "26 November 2026",
         "tagline": "A pocket-sized violin for life's smallest tragedies. Play it for someone who needs it.",
-        "summary": "People, play history and preferences are stored on your iPhone or iPad. Apple handles the optional Pro purchase.",
+        "summary": "People, play history and preferences are stored only on your iPhone or iPad. Apple handles the optional Pro purchase. JL3D runs no servers for this app and does not collect, receive or sell any personal data. There are no accounts, ads, analytics or tracking.",
+        "label": "On the App Store privacy label, the app declares Data Not Collected.",
         "stored": [
             "The names or nicknames you add for people you play the violin for, plus their saved size and sound preferences.",
             "Your play history (up to the most recent 100 plays) and simple statistics derived from it.",
@@ -37,6 +39,7 @@ APPS = [
             ("I can't hear anything.", "Turn the volume up with the side buttons. The violin plays through the media channel and is meant to be heard, so it also plays when the silent switch is on. Check that no Bluetooth device has taken the audio."),
             ("How do I restore Pro on a new iPhone or iPad?", "Tap Restore Purchases on the Pro screen or in Settings while signed in with the same Apple Account."),
             ("I reinstalled and my people and history are gone.", "Deleting the app removes the people and play history stored on the device. Use Restore Purchases to recover an eligible Pro purchase."),
+            ("The app says your library couldn't open.", "Your people and history have not been deleted. Close and reopen the app. If the message stays, email us before deleting the app, because deleting it removes the data stored on the device."),
             ("How do I get a refund?", f'Refunds for App Store purchases are handled by Apple. <a href="{REFUNDS}">Request a refund from Apple</a>.'),
         ],
     },
