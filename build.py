@@ -20,6 +20,138 @@ REFUNDS = "https://support.apple.com/en-us/118223"
 # purchases, and support FAQ. Keep sentences plain and specific.
 APPS = [
     {
+        "slug": "fdjsongfinder",
+        "name": "FDJ Song Finder",
+        "short": "FDJ Song Finder",
+        "tagline": "Search your church's Planning Center song library by lyric, title, author, key, or tempo—even offline.",
+        "summary": (
+            "Your church's song library is downloaded directly from Planning Center using your church access key "
+            "and stays on your device. JL3D runs no servers for this app and does not collect, receive, or sell "
+            "any personal data. There are no ads, no analytics, and no tracking."
+        ),
+        "stored": [
+            (
+                "A local copy of your church's Planning Center Services songs, arrangements, chord charts, lyrics, "
+                "keys, tempos, and scheduling metadata in a private SQLite database on your device so search and "
+                "chart reading work offline."
+            ),
+            (
+                "Your saved lists (Favorites and Shortlist), recent searches (up to the 10 most recent per library "
+                "on Android), and display preferences such as Light/Dark appearance and chart text size."
+            ),
+            (
+                "Your read-only Planning Center church access key (Application ID and Secret): stored in the iOS "
+                "Keychain on iPhone and iPad, and encrypted on Android with an AES-256-GCM key held in the Android "
+                "Keystore inside app-private no-backup storage."
+            ),
+            (
+                "On Android, your Planning Center organization name and ID plus a randomly salted SHA-256 hash of "
+                "the access key's Planning Center person ID, stored locally in the app's private database to prevent "
+                "mixing libraries from different organizations or accounts."
+            ),
+            (
+                "On Android, the downloaded song library, saved lists, recent searches, preferences, and encrypted "
+                "access key are excluded from Android cloud backup (Google Drive Auto Backup), ADB backup, and "
+                "device-to-device transfer. On iOS, app storage may be included in your own iCloud or computer "
+                "backup under Apple's privacy policy."
+            ),
+        ],
+        "leaves": [
+            (
+                "Planning Center (Ministry Centered Technologies)",
+                "The app talks directly and only to Planning Center's HTTPS API (api.planningcenteronline.com) "
+                "using the read-only church access key you enter, to verify the key and download or refresh your "
+                "church's Services songs, arrangements, chord charts, and keys. The app sends GET requests only "
+                "and never edits, creates, or deletes anything in Planning Center. On Android, the app rejects "
+                "non-HTTPS traffic, redirects, and user-installed certificates. Planning Center's own privacy "
+                "policy applies to your church's account there. JL3D runs no servers for this app and receives "
+                "none of this data.",
+            ),
+            (
+                "Optional links you tap",
+                "If you tap a Planning Center menu link (such as Open in Planning Center, Open Planning Center "
+                "Songs, or Open Web Music Stand), your device's browser opens that Planning Center web page "
+                "(services.planningcenteronline.com or musicstand.planningcenteronline.com). The browser handles "
+                "that visit under its own and Planning Center's privacy policies.",
+            ),
+            (
+                "Sharing and copying song titles",
+                "On Android, tapping Share on a song sends only the plain song title to the app you choose in the "
+                "Android share sheet; sharing a Saved list sends only the song titles, one per line. Copying a "
+                "song title on iOS or Android puts only the plain song title on your clipboard. Lyrics, chord "
+                "charts, Planning Center IDs, links, and access keys are never shared or copied by those actions.",
+            ),
+        ],
+        "provider_policies": [
+            ("Planning Center", "https://www.planningcenter.com/privacy"),
+        ],
+        "permissions": [
+            (
+                "Network access",
+                "Used only to connect over HTTPS to Planning Center (api.planningcenteronline.com) to check your "
+                "access key and download or refresh your church's song library. No other network permissions or "
+                "tracking SDKs are included.",
+            ),
+            (
+                "Background refresh (iOS)",
+                "Used to keep your downloaded library up to date while the app is closed, including an occasional "
+                "overnight verification check while your iPhone or iPad is charging. You can turn it off in iOS "
+                "Settings > General > Background App Refresh.",
+            ),
+            (
+                "Background refresh (Android)",
+                "While signed in, the app schedules WorkManager periodic checks (a refresh every 6 hours when "
+                "connected, plus an overnight verification sweep around 1:00 AM when on unmetered Wi-Fi and "
+                "charging). The app does not use foreground services. You can stop background refreshes by "
+                "restricting background battery or background data for FDJ Song Finder in Android Settings > Apps "
+                "> FDJ Song Finder, or by signing out in the app.",
+            ),
+        ],
+        "purchases": None,
+        "faq": [
+            (
+                "How do I get a church access key?",
+                "Ask your church's Planning Center Services administrator. Your administrator creates a dedicated "
+                "viewer-only Planning Center person, generates a Personal Access Token (an Application ID and a "
+                "Secret) for that person, and shares it privately with band members. The key is read-only and can "
+                "be revoked by your administrator at any time.",
+            ),
+            (
+                "What happens if our church access key is revoked?",
+                "Automatic and manual updates pause and the app tells you Planning Center access was removed. "
+                "Your already-downloaded songs stay readable offline on your device so you are never stuck during "
+                "a service. Ask your church administrator for a new key, or sign out in Settings.",
+            ),
+            (
+                "How do I remove the songs and access key from this device?",
+                "Open Settings, tap Sign Out, and choose Sign Out and Remove Downloaded Songs (or Sign Out and "
+                "Remove Songs on iOS). That deletes the downloaded library, saved lists, recent searches, and "
+                "saved access key from your device without changing anything in Planning Center. If you only want "
+                "to stop updates while keeping the downloaded songs offline, choose Sign Out and Keep Songs on "
+                "This Device. Uninstalling the app also deletes all app data.",
+            ),
+            (
+                "Search shows old lyrics or an older chart.",
+                "Open the app while online and let it refresh, or go to Settings > Verify all charts now before "
+                "rehearsal or a service.",
+            ),
+            (
+                "Is FDJ Song Finder affiliated with Planning Center?",
+                "No. FDJ Song Finder is an independent app made by JL3D Services, LLC. It is not affiliated with, "
+                "endorsed by, or supported by Planning Center or Ministry Centered Technologies.",
+            ),
+            (
+                "The app says the song library cannot be opened.",
+                "Nothing has been deleted automatically. Close and reopen the app. If the message stays, you can "
+                "tap Delete it and start over (Android) to clear the damaged file and re-sync, or email "
+                "JL3D@proton.me before deleting the app.",
+            ),
+        ],
+        "backup_note": "On Android, this data is excluded from cloud backup and device-to-device transfer. On iPhone and iPad, iOS may include it in your own iCloud or computer backup; that is governed by Apple's privacy policy. Deleting the app deletes this data.",
+        "support_note": "Include your device model, iOS or Android version and, if you can, the app version (shown in the app's Settings, under About).",
+        "leaves_note": "Planning Center's privacy policy: planningcenter.com/privacy.",
+    },
+    {
         "slug": "tinyviolin", "name": "World's Tiniest Violin", "short": "Tiny Violin",
         "effective": "26 November 2026",
         "tagline": "A pocket-sized violin for life's smallest tragedies. Play it for someone who needs it.",
@@ -188,7 +320,7 @@ def privacy(app):
 <p class="meta">Effective {app.get("effective", EFFECTIVE)} · {COMPANY}</p>
 <div class="summary"><strong>In short:</strong> {esc(app['summary'])}</div>
 <h2>What the app stores on your device</h2><ul>{stored}</ul>
-<p>This data lives in the app's private storage on your device. iOS may include it in your own iCloud or computer backup; that is governed by Apple's privacy policy. Deleting the app deletes this data.</p>
+<p>This data lives in the app's private storage on your device. {esc(app.get('backup_note', "iOS may include it in your own iCloud or computer backup; that is governed by Apple's privacy policy. Deleting the app deletes this data."))}</p>
 <h2>What leaves your device</h2><dl>{leaves}</dl>
 {note}<p>JL3D runs no servers for this app and receives none of this data.</p>{label}
 {perms}
@@ -205,7 +337,7 @@ def support(app):
     terms = f' · <a href="../terms/{app["slug"]}.html">Terms of Use</a>' if app.get("terms") else ""
     body = f"""<h1>{esc(app['name'])} Support</h1>
 <p class="lede">{esc(app['tagline'])}</p>
-<div class="contact"><strong>Contact us:</strong> <a href="mailto:{EMAIL}">{EMAIL}</a>. Include your device model, iOS version and, if you can, the app version (iPhone Settings › Apps › the app name). We usually reply within two business days.</div>
+<div class="contact"><strong>Contact us:</strong> <a href="mailto:{EMAIL}">{EMAIL}</a>. {esc(app.get('support_note', 'Include your device model, iOS version and, if you can, the app version (iPhone Settings › Apps › the app name).'))} We usually reply within two business days.</div>
 <h2>Common questions</h2>{faq}
 <p class="meta"><a href="../privacy/{app['slug']}.html">Privacy Policy</a>{terms}</p>"""
     return page(f"{app['short']} Support · JL3D", body, 1)
@@ -229,7 +361,7 @@ def index():
         t = f'<a href="terms/{a["slug"]}.html">Terms</a>' if a.get("terms") else ""
         cards += f"""<section class="card"><h2>{esc(a['name'])}</h2><p>{esc(a['tagline'])}</p>
 <div class="links"><a href="privacy/{a['slug']}.html">Privacy</a><a href="support/{a['slug']}.html">Support</a>{t}</div></section>"""
-    body = f"""<h1>JL3D Apps</h1><p class="lede">Small, focused iOS apps from {COMPANY}. None of them collects personal data.</p>
+    body = f"""<h1>JL3D Apps</h1><p class="lede">Small, focused iOS and Android apps from {COMPANY}. None of them collects personal data.</p>
 <div class="cards">{cards}</div>"""
     return page("JL3D Apps · Privacy & Support", body, 0)
 
