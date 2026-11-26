@@ -21,6 +21,7 @@ REFUNDS = "https://support.apple.com/en-us/118223"
 APPS = [
     {
         "slug": "fdjsongfinder",
+        "effective": "26 November 2026",
         "name": "FDJ Song Finder",
         "short": "FDJ Song Finder",
         "tagline": "Search your church's Planning Center song library by lyric, title, author, key, or tempo—even offline.",
